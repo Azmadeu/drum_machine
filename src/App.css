@@ -1,0 +1,132 @@
+body {
+    background: url('http://images.wallpaperscraft.ru/image/vodopad_trava_temnyy_priroda_92752_1920x1200.jpg');
+}
+
+.App {
+    border-radius: 3px;
+    border: 1px solid black;
+    box-shadow:  1px 1px 1px 1px;
+    position: relative;
+    margin: 12% auto auto auto;
+    padding: 60px 40px;
+    display: table;
+    background-color: white;
+    opacity: 0.9;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.inner-container {
+    width: 332px;
+    height: 272px;
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+    opacity: 1.0;
+}
+
+.drum-pad {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding-top: 35px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: grey;
+    margin-top: 10px;
+    box-shadow: black 3px 3px 5px;
+    color: black;
+    text-shadow: black;
+}
+
+.drum-pad,
+.drum-pad:hover,
+.drum-pad:visited {
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.drum-pad:active {
+    transform: translate(0px, 3px);
+    box-shadow: none;
+}
+
+.logo {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.inner-logo {
+    display: inline-block;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.controls-container {
+    width: 240px;
+    height: 272px;
+    display: inline-block;
+    margin: 40px 20px 0 10px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.control {
+    width: 100px;
+    margin: auto;
+}
+
+p {
+    margin-bottom: 0;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+#display {
+    width: 200px;
+    background-color: gray;
+    margin: 15px auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.outer-select {
+    margin: auto;
+    border: 1px solid black;
+    width: 50px;
+    height: 20px;
+    padding: 1px;
+    background-color: black;
+}
+
+.outer-select {
+    margin: auto;
+    border: 1px solid black;
+    width: 50px;
+    height: 20px;
+    padding: 1px;
+    background-color: black;
+}
+
+.inner-select {
+    width: 23px;
+    height: 19px;
+    background: blue;
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+}
