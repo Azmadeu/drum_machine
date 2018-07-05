@@ -62,7 +62,15 @@ class ControlPanel extends React.Component {
         return (
             <div id="drum-machine" className="App">
                 <div className="inner-container">
-
+                    <div className={"drum-pad"} id={0} onClick={this.handleClick}>Q</div>
+                    <div className={"drum-pad"} id={1} onClick={this.handleClick}>W</div>
+                    <div className={"drum-pad"} id={2} onClick={this.handleClick}>E</div>
+                    <div className={"drum-pad"} id={3} onClick={this.handleClick}>A</div>
+                    <div className={"drum-pad"} id={4} onClick={this.handleClick}>S</div>
+                    <div className={"drum-pad"} id={5} onClick={this.handleClick}>D</div>
+                    <div className={"drum-pad"} id={6} onClick={this.handleClick}>Z</div>
+                    <div className={"drum-pad"} id={7} onClick={this.handleClick}>X</div>
+                    <div className={"drum-pad"} id={8} onClick={this.handleClick}>C</div>
                 </div>
                 <ControlContainer sound={this.state.soundName}
                                   updateBank={this.updateBank}
