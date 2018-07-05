@@ -1,6 +1,45 @@
 import React from 'react';
 import './App.css';
 
+const buttons = [
+    {
+        id: 0,
+        symbol: "Q",
+    },
+    {
+        id: 1,
+        symbol: "W",
+    },
+    {
+        id: 2,
+        symbol: "E",
+    },
+    {
+        id: 3,
+        symbol: "A",
+    },
+    {
+        id: 4,
+        symbol: "S",
+    },
+    {
+        id: 5,
+        symbol: "D",
+    },
+    {
+        id: 6,
+        symbol: "Z",
+    },
+    {
+        id: 7,
+        symbol: "X",
+    },
+    {
+        id: 8,
+        symbol: "C",
+    },
+];
+
 // const volumeSlider = () => {
 //     return (
 //         <div className="volume-slider">
@@ -29,7 +68,7 @@ import './App.css';
 //             </div>
 //         </div>
 //     )
-// };
+// };/
 
 class ControlPanel extends React.Component {
     constructor(props) {
@@ -46,31 +85,36 @@ class ControlPanel extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(event) {
-        if (this.state.modePower) {
-            (this.state.modeBank) ?
-                this.setState({soundName: this.state.pianoSounds[event.target.id]}) :
-                this.setState({soundName: this.state.bitSounds[event.target.id]});
+        (this.state.modePower && this.state.modeBank) ?
+            this.setState({soundName: this.state.pianoSounds[event.target.id]}) :
+            this.setState({soundName: this.state.bitSounds[event.target.id]});
         }
-    }
+
     updatePower = (value) => {
         this.setState({ modePower: value })
     };
+
     updateBank = (value) => {
         this.setState({ modeBank: value })
     };
+
     render() {
         return (
             <div id="drum-machine" className="App">
                 <div className="inner-container">
-                    <div className={"drum-pad"} id={0} onClick={this.handleClick}>Q</div>
-                    <div className={"drum-pad"} id={1} onClick={this.handleClick}>W</div>
-                    <div className={"drum-pad"} id={2} onClick={this.handleClick}>E</div>
-                    <div className={"drum-pad"} id={3} onClick={this.handleClick}>A</div>
-                    <div className={"drum-pad"} id={4} onClick={this.handleClick}>S</div>
-                    <div className={"drum-pad"} id={5} onClick={this.handleClick}>D</div>
-                    <div className={"drum-pad"} id={6} onClick={this.handleClick}>Z</div>
-                    <div className={"drum-pad"} id={7} onClick={this.handleClick}>X</div>
-                    <div className={"drum-pad"} id={8} onClick={this.handleClick}>C</div>
+                    {
+                        buttons.map(button => (
+                                <div
+                                    key={button.id}
+                                    id={button.id}
+                                    className={"drum-pad"}
+                                    onClick={this.handleClick}
+                                >
+                                    {button.symbol}
+                                </div>
+                            )
+                        )
+                    }
                 </div>
                 <ControlContainer sound={this.state.soundName}
                                   updateBank={this.updateBank}
@@ -85,8 +129,6 @@ class ControlContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            power: "inner-select",
-            bank: "inner-select",
             modePower: false,
             modeBank: false
         };
@@ -97,27 +139,13 @@ class ControlContainer extends React.Component {
     }
 
     powerClick() {
-        if (this.state.power === "inner-select") {
-            this.setState({power: "inner-select right"});
-            this.state.modePower = true;
-            this.props.updatePower(this.state.modePower)
-        } else {
-            this.setState({power: "inner-select"});
-            this.state.modePower = false;
-            this.props.updatePower(this.state.modePower)
-        }
+            this.setState(prevState => ({ modePower: !prevState.modePower }),
+                () => (this.props.updatePower(this.state.modePower)));
     }
 
     bankClick() {
-        if (this.state.bank === "inner-select") {
-            this.setState({bank: "inner-select right"});
-            this.state.modeBank = true;
-            this.props.updateBank(this.state.modeBank)
-        } else {
-            this.setState({bank: "inner-select"});
-            this.state.modeBank = false;
-            this.props.updateBank(this.state.modeBank);
-        }
+        this.setState(prevState => ({modeBank: !prevState.modeBank}),
+            () => (this.props.updateBank(this.state.modeBank)));
     }
 
     render() {
@@ -126,7 +154,9 @@ class ControlContainer extends React.Component {
                 <div className="control">
                     <p>Power</p>
                     <div className="outer-select" onClick={this.powerClick}>
-                        <div className={this.state.power} onClick={this.powerClick}> </div>
+                        <div className={this.state.modePower ? "inner-select right" : "inner-select"}
+                             onClick={this.powerClick}>
+                        </div>
                     </div>
                 </div>
                 <p id="display">
@@ -138,7 +168,9 @@ class ControlContainer extends React.Component {
                 <div className="control">
                     <p>Bank</p>
                     <div className="outer-select" onClick={this.bankClick}>
-                        <div className={this.state.bank} style={{float: "left"}} onClick={this.bankClick}> </div>
+                        <div className={this.state.modeBank ? "inner-select right" : "inner-select"}
+                             style={{float: "left"}} onClick={this.bankClick}>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,19 +180,10 @@ class ControlContainer extends React.Component {
 
 
 class Container extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            power: "inner-select",
-            bank: "inner-select",
-            mode: ''
-        };
-    }
-
     render() {
         return (
             <div>
-                <ControlPanel/>
+                <ControlPanel />
             </div>
 
         );
