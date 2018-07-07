@@ -47,18 +47,24 @@ body {
     font-weight: 600;
 }
 
-.drum-pad,
-.drum-pad:hover,
-.drum-pad:visited {
+.active {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding-top: 35px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #FFEB3B;
+    margin-top: 10px;
+    box-shadow: none;
+    color: black;
+    font-weight: 600;
+    transform: translate(0px, 3px);
     text-decoration: none;
     outline: none;
-    cursor: pointer;
-}
-
-.drum-pad:active {
-    transform: translate(0px, 3px);
-    box-shadow: none;
-    background-color: #FFEB3B;
 }
 
 .logo {
