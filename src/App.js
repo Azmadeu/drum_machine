@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Container from './Container';
+import DrumBar from './Components/DrumBar';
 
 function App() {
     return (
-        <Container />
+        <DrumBar />
     );
 }
 

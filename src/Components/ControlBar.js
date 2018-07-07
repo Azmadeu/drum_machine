@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import Switch from './Switch';
-import VolumeSlider from './VolumeSlider';
+
 class ControlBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modePower: false,
-      modeBank: false
-    };
+      modeBank: false,
+      inputValue: 0.3
+    }
   }
+
+  onChange = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    })
+  };
 
   powerClick = () => {
     this.setState(prevState => ({modePower: !prevState.modePower}),
@@ -32,7 +39,14 @@ class ControlBar extends Component {
           {this.state.modePower && this.props.sound}
         </p>
         <div className="volume-slider">
-          <input type={"range"} min={0} max={100} step={1} />
+          <input
+            type={"range"}
+            max={1}
+            min={0}
+            step={0.01}
+            value={this.state.inputValue}
+            onChange={this.onChange}
+          />
         </div>
         <Switch
           label='Bank'
