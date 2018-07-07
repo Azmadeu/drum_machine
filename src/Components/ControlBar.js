@@ -7,14 +7,15 @@ class ControlBar extends Component {
     this.state = {
       modePower: false,
       modeBank: false,
-      inputValue: 0.3
+      // inputValue: 0.3
     }
   }
 
   onChange = (event) => {
-    this.setState({
-      inputValue: event.target.value
-    })
+    this.props.volumeChange(event.target.value)
+    // this.setState({
+    //   inputValue: event.target.value
+    // })
   };
 
   powerClick = () => {
@@ -44,7 +45,7 @@ class ControlBar extends Component {
             max={1}
             min={0}
             step={0.01}
-            value={this.state.inputValue}
+            value={this.props.volume}
             onChange={this.onChange}
           />
         </div>

@@ -9,6 +9,7 @@ class DrumBar extends Component {
       modePower: false,
       modeBank: false,
       soundName: '',
+      volume: 0.3,
       bank
     };
 
@@ -46,6 +47,12 @@ class DrumBar extends Component {
     }
   };
 
+  onVolumeChange = (newVolume) => {
+    this.setState({
+      volume: newVolume
+    })
+  };
+
   activeStyle = (event) => {
     let elem = event.target;
     if (elem != null) {
@@ -61,6 +68,7 @@ class DrumBar extends Component {
   playSound = (id) => {
     var sound = document.getElementById(id);
     sound.currentTime = 0;
+    sound.volume = this.state.volume;
     sound.play();
   };
 
@@ -99,6 +107,8 @@ class DrumBar extends Component {
           sound={this.state.soundName}
           updateBank={this.updateBank}
           updatePower={this.updatePower}
+          volume={this.state.volume}
+          volumeChange={this.onVolumeChange}
         />
       </div>
     )
