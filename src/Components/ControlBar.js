@@ -7,25 +7,33 @@ class ControlBar extends Component {
     this.state = {
       modePower: false,
       modeBank: false,
+      // text: ''
       // inputValue: 0.3
     }
   }
 
   onChange = (event) => {
-    this.props.volumeChange(event.target.value)
+    this.props.volumeChange(event.target.value);
+    // this.setState({
+    //   text: `volume: ${Math.round(event.target.value*100)}`
+    // })
     // this.setState({
     //   inputValue: event.target.value
     // })
   };
 
   powerClick = () => {
-    this.setState(prevState => ({modePower: !prevState.modePower}),
-      () => (this.props.updatePower(this.state.modePower)));
+    this.setState(
+      prevState => ({modePower: !prevState.modePower}),
+      () => (this.props.updatePower(this.state.modePower))
+    );
   };
 
   bankClick = () => {
-    this.setState(prevState => ({modeBank: !prevState.modeBank}),
-      () => (this.props.updateBank(this.state.modeBank)));
+    this.setState(
+      prevState => ({modeBank: !prevState.modeBank}),
+      () => (this.props.updateBank(this.state.modeBank))
+    );
   };
 
   render() {
@@ -37,7 +45,7 @@ class ControlBar extends Component {
           mode={this.state.modePower}
         />
         <p id="display">
-          {this.state.modePower && this.props.sound}
+          {this.state.modePower && this.props.text}
         </p>
         <div className="volume-slider">
           <input
