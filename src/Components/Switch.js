@@ -7,7 +7,7 @@ class Switch extends Component {
         <p>{this.props.label}</p>
         <div className="outer-select" onClick={this.props.onClick}>
           <div className={this.props.mode ? "inner-select right" : "inner-select"}
-               style={{float: "left"}} onClick={this.props.onClick}>
+               style={{float: "left"}}>
           </div>
         </div>
       </div>

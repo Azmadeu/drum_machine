@@ -7,15 +7,11 @@ class ControlBar extends Component {
     this.state = {
       modePower: false,
       modeBank: false,
-      // inputValue: 0.3
     }
   }
 
   onChange = (event) => {
     this.props.volumeChange(event.target.value)
-    // this.setState({
-    //   inputValue: event.target.value
-    // })
   };
 
   powerClick = () => {
