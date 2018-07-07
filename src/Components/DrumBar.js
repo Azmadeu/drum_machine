@@ -8,6 +8,7 @@ class DrumBar extends Component {
     this.state = {
       modePower: false,
       modeBank: false,
+      text: '',
       soundName: '',
       volume: 0.3,
       bank
@@ -32,7 +33,7 @@ class DrumBar extends Component {
         setTimeout(() => {elem.className = "active"}, 0);
         setTimeout(() => {elem.className = "drum-pad"}, 200);
       }
-      this.setState({soundName: id, bank});
+      this.setState({soundName: id, bank, text: id});
       this.playSound(symbol);
     }
   };
@@ -41,7 +42,7 @@ class DrumBar extends Component {
     let elem = event.target;
     let id = getSymbol(this.state.modeBank, this.state.bank, elem.id);
     if (this.state.modePower) {
-      this.setState({soundName: elem.id, bank});
+      this.setState({soundName: elem.id, bank, text: elem.id});
       this.playSound(id);
       this.activeStyle(event)
     }
@@ -49,7 +50,8 @@ class DrumBar extends Component {
 
   onVolumeChange = (newVolume) => {
     this.setState({
-      volume: newVolume
+      volume: newVolume,
+      text: `volume: ${Math.round(newVolume*100)}`
     })
   };
 
@@ -109,6 +111,7 @@ class DrumBar extends Component {
           updatePower={this.updatePower}
           volume={this.state.volume}
           volumeChange={this.onVolumeChange}
+          text={this.state.text}
         />
       </div>
     )
