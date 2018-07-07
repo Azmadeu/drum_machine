@@ -32,7 +32,7 @@ class ControlBar extends Component {
           {this.state.modePower && this.props.sound}
         </p>
         <div className="volume-slider">
-          <VolumeSlider />
+          <input type={"range"} min={0} max={100} step={1} />
         </div>
         <Switch
           label='Bank'
