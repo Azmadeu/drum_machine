@@ -2,7 +2,7 @@
   "name": "drum-machine",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Azmadeu.github.io/drum-machine",
+  "homepage": "https://Azmadeu.github.io/drum-machine",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
