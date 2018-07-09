@@ -1,20 +1,7 @@
 import React, {Component} from "react";
-import ControlBar from './ControlBar';
-import {getId, getSymbol, bank} from '../helpers';
+import {getSymbol, getId} from "../helpers";
 
 class DrumBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modePower: false,
-      modeBank: false,
-      text: '',
-      soundName: '',
-      volume: 0.3,
-      bank
-    };
-
-  }
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -25,34 +12,33 @@ class DrumBar extends Component {
   }
 
   handleKeyPress = (event) => {
-    let symbol = getSymbol(this.state.modeBank, this.state.bank, event.key);
-    let id = getId(this.state.modeBank, this.state.bank, event.key);
+    let symbol = getSymbol(this.props.drumData.modeBank, this.props.drumData.bank, event.key);
+    let id = getId(this.props.drumData.modeBank, this.props.drumData.bank, event.key);
     let elem = document.getElementById(id);
-    if (event.key === symbol && this.state.modePower) {
+    if (event.key === symbol && this.props.drumData.modePower) {
       if (elem != null) {
-        setTimeout(() => {elem.className = "active"}, 0);
-        setTimeout(() => {elem.className = "drum-pad"}, 200);
+        setTimeout(() => {
+          elem.className = "active"
+        }, 0);
+        setTimeout(() => {
+          elem.className = "drum-pad"
+        }, 200);
       }
-      this.setState({soundName: id, bank, text: id});
+      this.props.drumData.soundName = id;
+      this.props.soundNameChange(id);
       this.playSound(symbol);
     }
   };
 
   handleClick = (event) => {
     let elem = event.target;
-    let id = getSymbol(this.state.modeBank, this.state.bank, elem.id);
-    if (this.state.modePower) {
-      this.setState({soundName: elem.id, bank, text: elem.id});
+    this.props.drumData.soundName = elem.id;
+    this.props.soundNameChange(elem.id);
+    let id = getSymbol(this.props.drumData.modeBank, this.props.drumData.bank, elem.id);
+    if (this.props.drumData.modePower) {
       this.playSound(id);
       this.activeStyle(event)
     }
-  };
-
-  onVolumeChange = (newVolume) => {
-    this.setState({
-      volume: newVolume,
-      text: `volume: ${Math.round(newVolume*100)}`
-    })
   };
 
   activeStyle = (event) => {
@@ -68,51 +54,37 @@ class DrumBar extends Component {
   };
 
   playSound = (id) => {
-    var sound = document.getElementById(id);
+    let sound = document.getElementById(id);
     sound.currentTime = 0;
-    sound.volume = this.state.volume;
+    sound.volume = this.props.drumData.volume;
     sound.play();
   };
 
-  updatePower = (value) => {
-    this.setState({modePower: value})
-  };
-
-  updateBank = (value) => {
-    this.setState({modeBank: value})
-  };
-
   render() {
+    const {
+      modeBank,
+      bank
+    } = this.props.drumData;
     return (
-      <div id="drum-machine" className="App">
-        <div className="inner-container">
-          {
-            this.state.bank.map(button => (
-                <div
-                  key={this.state.modeBank ? button.idSecond : button.idFirst}
-                  id={this.state.modeBank ? button.idSecond : button.idFirst}
-                  className={"drum-pad"}
-                  onMouseUp={this.handleClick}
+      <div className="inner-container">
+        {
+          bank.map(button => (
+              <div
+                key={modeBank ? button.idSecond : button.idFirst}
+                id={modeBank ? button.idSecond : button.idFirst}
+                className={"drum-pad"}
+                onMouseUp={this.handleClick}
+              >
+                <audio
+                  id={button.symbol}
+                  src={modeBank ? button.urlSecond : button.urlFirst}
                 >
-                  <audio
-                    id={button.symbol}
-                    src={this.state.modeBank ? button.urlSecond : button.urlFirst}
-                  >
-                  </audio>
-                  {button.symbol.toUpperCase()}
-                </div>
-              )
+                </audio>
+                {button.symbol.toUpperCase()}
+              </div>
             )
-          }
-        </div>
-        <ControlBar
-          sound={this.state.soundName}
-          updateBank={this.updateBank}
-          updatePower={this.updatePower}
-          volume={this.state.volume}
-          volumeChange={this.onVolumeChange}
-          text={this.state.text}
-        />
+          )
+        }
       </div>
     )
   }

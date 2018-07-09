@@ -2,6 +2,11 @@ body {
     background-color: #6f4d4d;
 }
 
+input {
+    text-decoration: none;
+    outline: none;
+}
+
 .App {
     border-radius: 3px;
     border: 2px solid black;

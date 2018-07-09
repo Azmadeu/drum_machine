@@ -1,45 +1,31 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Switch from './Switch';
 
 class ControlBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modePower: false,
-      modeBank: false,
 
-    }
-  }
-
-  onChange = (event) => {
-    this.props.volumeChange(event.target.value);
- 
-  };
-
-  powerClick = () => {
-    this.setState(
-      prevState => ({modePower: !prevState.modePower}),
-      () => (this.props.updatePower(this.state.modePower))
-    );
-  };
-
-  bankClick = () => {
-    this.setState(
-      prevState => ({modeBank: !prevState.modeBank}),
-      () => (this.props.updateBank(this.state.modeBank))
-    );
+  onVolumeChange = (event) => {
+    this.props.onVolumeChange(event.target.value);
   };
 
   render() {
+    const {
+      onPowerClick,
+      modePower,
+      text,
+      volume,
+      modeBank,
+      onBankClick,
+    } = this.props;
+
     return (
       <div className="controls-container">
         <Switch
           label='Power'
-          onClick={this.powerClick}
-          mode={this.state.modePower}
+          onClick={onPowerClick}
+          mode={modePower}
         />
         <p id="display">
-          {this.state.modePower && this.props.text}
+          {modePower && text}
         </p>
         <div className="volume-slider">
           <input
@@ -47,14 +33,14 @@ class ControlBar extends Component {
             max={1}
             min={0}
             step={0.01}
-            value={this.props.volume}
-            onChange={this.onChange}
+            value={volume}
+            onChange={this.onVolumeChange}
           />
         </div>
         <Switch
           label='Bank'
-          mode={this.state.modeBank}
-          onClick={this.bankClick}
+          mode={modeBank}
+          onClick={onBankClick}
         />
       </div>
     )
