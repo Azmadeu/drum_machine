@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import DrumBar from './Components/DrumBar';
-import ControlBar from './Components/ControlBar';
+import DrumBar from './Components/DrumBar/index';
+import ControlBar from './Components/ControlBar/index';
 import { bank } from './helpers';
 import './App.css';
 
@@ -17,7 +17,9 @@ class App extends Component {
     };
   }
 
-  soundNameChange = (newSound) => {
+
+
+  updateSoundName = (newSound) => {
       this.setState({
         text: newSound
       })
@@ -47,8 +49,8 @@ class App extends Component {
     return (
       <div id="drum-machine" className="App">
         <DrumBar
-          soundNameChange={this.soundNameChange}
-          drumData={this.state}
+          {...this.state}
+          updateSoundName={this.updateSoundName}
         />
         <ControlBar
           onBankClick={this.onBankClick}

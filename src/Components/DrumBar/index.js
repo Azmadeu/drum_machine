@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getSymbol, getId} from "../helpers";
+import {getSymbol, getId} from "../../helpers/index";
 
 class DrumBar extends Component {
 
@@ -12,10 +12,10 @@ class DrumBar extends Component {
   }
 
   handleKeyPress = (event) => {
-    let symbol = getSymbol(this.props.drumData.modeBank, this.props.drumData.bank, event.key);
-    let id = getId(this.props.drumData.modeBank, this.props.drumData.bank, event.key);
+    let symbol = getSymbol(this.props.modeBank, this.props.bank, event.key);
+    let id = getId(this.props.modeBank, this.props.bank, event.key);
     let elem = document.getElementById(id);
-    if (event.key === symbol && this.props.drumData.modePower) {
+    if (event.key === symbol && this.props.modePower) {
       if (elem != null) {
         setTimeout(() => {
           elem.className = "active"
@@ -24,18 +24,16 @@ class DrumBar extends Component {
           elem.className = "drum-pad"
         }, 200);
       }
-      this.props.drumData.soundName = id;
-      this.props.soundNameChange(id);
+      this.props.updateSoundName(id);
       this.playSound(symbol);
     }
   };
 
   handleClick = (event) => {
     let elem = event.target;
-    this.props.drumData.soundName = elem.id;
-    this.props.soundNameChange(elem.id);
-    let id = getSymbol(this.props.drumData.modeBank, this.props.drumData.bank, elem.id);
-    if (this.props.drumData.modePower) {
+    this.props.updateSoundName(elem.id);
+    let id = getSymbol(this.props.modeBank, this.props.bank, elem.id);
+    if (this.props.modePower) {
       this.playSound(id);
       this.activeStyle(event)
     }
@@ -56,7 +54,7 @@ class DrumBar extends Component {
   playSound = (id) => {
     let sound = document.getElementById(id);
     sound.currentTime = 0;
-    sound.volume = this.props.drumData.volume;
+    sound.volume = this.props.volume;
     sound.play();
   };
 
@@ -64,7 +62,7 @@ class DrumBar extends Component {
     const {
       modeBank,
       bank
-    } = this.props.drumData;
+    } = this.props;
     return (
       <div className="inner-container">
         {

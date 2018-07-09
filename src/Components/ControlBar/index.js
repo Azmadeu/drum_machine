@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Switch from './Switch';
+import Switch from '../SwitchModes/index';
 
 class ControlBar extends Component {
 
